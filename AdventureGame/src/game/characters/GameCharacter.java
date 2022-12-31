@@ -1,11 +1,16 @@
 package game.characters;
 
+import java.util.ArrayList;
+
+import game.locations.safelocations.blacksmith.shopitems.ShopItem;
+
 public abstract class GameCharacter {
 
 	protected String name;
 	protected int damage;
 	protected int health;
 	protected int money;
+	private ArrayList<ShopItem> inventory = new ArrayList<>();
 	
 	public int getDamage() {
 		return damage;
@@ -29,4 +34,12 @@ public abstract class GameCharacter {
 	public String getName() {
 		return name;
 	}
+	public ArrayList<ShopItem> getInventory() {
+		return inventory;
+	}
+	public void setInventory(ArrayList<ShopItem> inventory) {
+		this.inventory = inventory;
+	}
+	
+	
 }

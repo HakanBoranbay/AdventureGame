@@ -1,7 +1,11 @@
 package game.main;
 
+import java.util.ArrayList;
+
 import game.characters.GameCharacter;
-import game.characters.PlayerInventory;
+import game.locations.safelocations.blacksmith.shopitems.ShopItem;
+import game.locations.safelocations.blacksmith.shopitems.armours.Armour;
+import game.locations.safelocations.blacksmith.shopitems.weapons.Weapon;
 
 public class Player {
 	
@@ -9,7 +13,9 @@ public class Player {
 	private int health;
 	private int money;
 	private String name;
-	private PlayerInventory inventory;
+	private ArrayList<ShopItem> inventory;
+	private Armour armour;
+	private Weapon weapon;
 	private GameCharacter character;
 	
 	public Player(String name) {
@@ -44,11 +50,11 @@ public class Player {
 		return name;
 	}
 
-	public PlayerInventory getInventory() {
+	public ArrayList<ShopItem> getInventory() {
 		return inventory;
 	}
 
-	public void setInventory(PlayerInventory inventory) {
+	public void setInventory(ArrayList<ShopItem> inventory) {
 		this.inventory = inventory;
 	}
 
@@ -60,6 +66,22 @@ public class Player {
 		this.character = character;
 	}
 	
+	public Armour getArmour() {
+		return armour;
+	}
+
+	public void setArmour(Armour armour) {
+		this.armour = armour;
+	}
+
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("You are a %s by the name of %s. "

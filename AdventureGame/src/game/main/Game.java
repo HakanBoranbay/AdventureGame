@@ -10,12 +10,22 @@ import game.locations.Location;
 import game.locations.battlelocations.Cave;
 import game.locations.battlelocations.Forest;
 import game.locations.battlelocations.River;
-import game.locations.safelocations.BlackSmith;
 import game.locations.safelocations.SafeHouse;
+import game.locations.safelocations.blacksmith.BlackSmith;
+import game.locations.safelocations.blacksmith.shopitems.armours.SimpleClothes;
+import game.locations.safelocations.blacksmith.shopitems.weapons.BareHands;
 
 public class Game {
 	
 	private Scanner scanner = new Scanner(System.in);
+	Player player;
+
+	Location location;
+	SafeHouse safeHouse = new SafeHouse();
+	BlackSmith blackSmith = new BlackSmith();
+	Cave cave = new Cave();
+	Forest forest = new Forest();
+	River river = new River();
 
 	public void start() {
 		
@@ -27,18 +37,26 @@ public class Game {
 		GameCharacter character = chooseCharacter(scanner);
 		System.out.println("So you chose to be a " + character.getClass().getSimpleName());
 		
-		Player player = new Player(name);
+		this.player = new Player(name);
 		player.setCharacter(character);
 		player.setDamage(character.getDamage());
 		player.setHealth(character.getHealth());
 		player.setMoney(character.getMoney());
+		player.setInventory(character.getInventory());
+		player.setArmour(new SimpleClothes());
+		player.setWeapon(new BareHands());
 		
+
 		System.out.println(player);
 		
 		// TODO
 		System.out.println("Story");
-		
-		
+
+		while (player.getHealth() > 0) {
+			
+			goToLocation(scanner);
+			
+		}
 		
 		
 		
@@ -65,33 +83,32 @@ public class Game {
 		return player;
 	}
 	
-	private Location goToLocation(Scanner scanner) {
+	private void goToLocation(Scanner scanner) {
 		
-		Location location = null;
 		System.out.print("Where do you want to go next? ");
 		String nextLoc = scanner.nextLine();
 		
 		if (nextLoc.toLowerCase().equals("safehouse")) {
-			location = new SafeHouse();
-			location.setOnLocation(true);
+			location = safeHouse;
 		} else if (nextLoc.toLowerCase().equals("blacksmith")) {
-			location = new BlackSmith();
-			location.setOnLocation(true);
+			location = blackSmith;
 		} else if (nextLoc.toLowerCase().equals("cave")) {
-			location = new Cave();
-			location.setOnLocation(true);
+			location = cave;
 		} else if (nextLoc.toLowerCase().equals("forest")) {
-			location = new Forest();
-			location.setOnLocation(true);
+			location = forest;
 		} else if (nextLoc.toLowerCase().equals("river")) {
-			location = new River();
-			location.setOnLocation(true);
+			location = river;
 		} else {
 			System.out.println("You have no choice other than these five!");
-			return goToLocation(scanner);
+			goToLocation(scanner);
 		}
 		
-		return location;
+		location.setScanner(scanner);
+		location.setPlayer(player);
+		location.locationAction();
+		
+		System.out.println(player);
 		
 	}
+	
 }
