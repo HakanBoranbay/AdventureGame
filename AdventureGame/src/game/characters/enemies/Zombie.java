@@ -1,8 +1,6 @@
 package game.characters.enemies;
 
-import game.characters.GameCharacter;
-
-public class Zombie extends GameCharacter{
+public class Zombie extends Enemy {
 
 	public Zombie() {
 		damage = 3;

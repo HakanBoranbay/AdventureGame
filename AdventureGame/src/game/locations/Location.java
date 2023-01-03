@@ -2,6 +2,7 @@ package game.locations;
 
 import java.util.Scanner;
 
+import game.locations.battlelocations.SurvivalItem;
 import game.main.Player;
 
 public abstract class Location {
@@ -35,5 +36,7 @@ public abstract class Location {
 	}
 
 	public void locationAction() {}
+	
+	public void locationAction(SurvivalItem survivalItem) {}
 	
 }

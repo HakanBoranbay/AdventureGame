@@ -10,6 +10,7 @@ import game.locations.Location;
 import game.locations.battlelocations.Cave;
 import game.locations.battlelocations.Forest;
 import game.locations.battlelocations.River;
+import game.locations.battlelocations.SurvivalItem;
 import game.locations.safelocations.SafeHouse;
 import game.locations.safelocations.blacksmith.BlackSmith;
 import game.locations.safelocations.blacksmith.shopitems.armours.SimpleClothes;
@@ -26,6 +27,9 @@ public class Game {
 	Cave cave = new Cave();
 	Forest forest = new Forest();
 	River river = new River();
+	SurvivalItem water = new SurvivalItem("WATER");
+	SurvivalItem food = new SurvivalItem("FOOD");
+	SurvivalItem wood = new SurvivalItem("WOOD");
 
 	public void start() {
 		
@@ -43,6 +47,7 @@ public class Game {
 		player.setHealth(character.getHealth());
 		player.setMoney(character.getMoney());
 		player.setInventory(character.getInventory());
+		player.setPouch(character.getPouch());
 		player.setArmour(new SimpleClothes());
 		player.setWeapon(new BareHands());
 		
@@ -56,17 +61,19 @@ public class Game {
 			
 			goToLocation(scanner);
 			
+			if (player.getPouch().contains(water) && player.getPouch().contains(food) && player.getPouch().contains(wood)) {
+				System.out.println("YOU SURVIVED!!!");
+				return;
+			}
+			
 		}
 		
-		
-		
-//		Player player = new Player(name);
 	}
 	
 	private GameCharacter chooseCharacter(Scanner scanner) {
 		
 		GameCharacter player = null;
-		System.out.print("Choose your character: ");
+		System.out.print("Choose your character (Archer, Samurai or Knight): ");
 		String charName = scanner.nextLine();
 		
 		if (charName.toLowerCase().equals("archer")) {
@@ -85,27 +92,38 @@ public class Game {
 	
 	private void goToLocation(Scanner scanner) {
 		
-		System.out.print("Where do you want to go next? ");
+		System.out.print("Where do you want to go next? (SafeHouse, BlackSmith, River, Cave, Forest) ");
 		String nextLoc = scanner.nextLine();
 		
 		if (nextLoc.toLowerCase().equals("safehouse")) {
 			location = safeHouse;
+			location.setScanner(scanner);
+			location.setPlayer(player);
+			location.locationAction();
 		} else if (nextLoc.toLowerCase().equals("blacksmith")) {
 			location = blackSmith;
+			location.setScanner(scanner);
+			location.setPlayer(player);
+			location.locationAction();
 		} else if (nextLoc.toLowerCase().equals("cave")) {
 			location = cave;
+			location.setScanner(scanner);
+			location.setPlayer(player);
+			location.locationAction(food);
 		} else if (nextLoc.toLowerCase().equals("forest")) {
 			location = forest;
+			location.setScanner(scanner);
+			location.setPlayer(player);
+			location.locationAction(wood);
 		} else if (nextLoc.toLowerCase().equals("river")) {
 			location = river;
+			location.setScanner(scanner);
+			location.setPlayer(player);
+			location.locationAction(water);
 		} else {
 			System.out.println("You have no choice other than these five!");
 			goToLocation(scanner);
 		}
-		
-		location.setScanner(scanner);
-		location.setPlayer(player);
-		location.locationAction();
 		
 		System.out.println(player);
 		

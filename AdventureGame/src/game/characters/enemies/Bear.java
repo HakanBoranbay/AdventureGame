@@ -1,12 +1,10 @@
 package game.characters.enemies;
 
-import game.characters.GameCharacter;
-
-public class Bear extends GameCharacter {
+public class Bear extends Enemy {
 
 	public Bear() {
-		damage = 4;
-		health = 14;
-		money = 7;
+		damage = 7;
+		health = 20;
+		money = 12;
 	}
 }

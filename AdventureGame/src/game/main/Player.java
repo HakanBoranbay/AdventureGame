@@ -3,6 +3,7 @@ package game.main;
 import java.util.ArrayList;
 
 import game.characters.GameCharacter;
+import game.locations.battlelocations.SurvivalItem;
 import game.locations.safelocations.blacksmith.shopitems.ShopItem;
 import game.locations.safelocations.blacksmith.shopitems.armours.Armour;
 import game.locations.safelocations.blacksmith.shopitems.weapons.Weapon;
@@ -14,6 +15,7 @@ public class Player {
 	private int money;
 	private String name;
 	private ArrayList<ShopItem> inventory;
+	private ArrayList<SurvivalItem> pouch;
 	private Armour armour;
 	private Weapon weapon;
 	private GameCharacter character;
@@ -58,6 +60,14 @@ public class Player {
 		this.inventory = inventory;
 	}
 
+	public ArrayList<SurvivalItem> getPouch() {
+		return pouch;
+	}
+
+	public void setPouch(ArrayList<SurvivalItem> pouch) {
+		this.pouch = pouch;
+	}
+
 	public GameCharacter getCharacter() {
 		return character;
 	}
@@ -84,10 +94,12 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return String.format("You are a %s by the name of %s. "
+		return String.format("%nYou are a %s by the name of %s. "
 				+ "%nHealth point	: %d"
 				+ "%nDamage		: %d"
-				+ "%nMoney		: %d", 
-				getCharacter().getClass().getSimpleName(), getName(), getHealth(), getDamage(), getMoney());
+				+ "%nMoney		: %d"
+				+ "%nArmour		: %s"
+				+ "%nWeapon		: %s%n", 
+				getCharacter().getClass().getSimpleName(), getName(), getHealth(), getDamage(), getMoney(), getArmour().getClass().getSimpleName(), getWeapon().getClass().getSimpleName());
 	}
 }

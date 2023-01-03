@@ -2,6 +2,7 @@ package game.characters;
 
 import java.util.ArrayList;
 
+import game.locations.battlelocations.SurvivalItem;
 import game.locations.safelocations.blacksmith.shopitems.ShopItem;
 
 public abstract class GameCharacter {
@@ -11,6 +12,7 @@ public abstract class GameCharacter {
 	protected int health;
 	protected int money;
 	private ArrayList<ShopItem> inventory = new ArrayList<>();
+	private ArrayList<SurvivalItem> pouch = new ArrayList<>();
 	
 	public int getDamage() {
 		return damage;
@@ -39,6 +41,12 @@ public abstract class GameCharacter {
 	}
 	public void setInventory(ArrayList<ShopItem> inventory) {
 		this.inventory = inventory;
+	}
+	public ArrayList<SurvivalItem> getPouch() {
+		return pouch;
+	}
+	public void setPouch(ArrayList<SurvivalItem> pouch) {
+		this.pouch = pouch;
 	}
 	
 	

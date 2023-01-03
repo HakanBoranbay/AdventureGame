@@ -54,7 +54,6 @@ public class BlackSmith extends Location{
 	}
 	
 	private void purchase() {
-		ShopItem item;
 		System.out.println("What do you want to buy? A weapon or an armour?");
 		String itemName = getScanner().nextLine();
 		
@@ -63,29 +62,25 @@ public class BlackSmith extends Location{
 		getScanner().nextLine();
 		
 		if (itemName.toLowerCase().equals("weapon")) {
-			item = weapons[id - 1];
-			if(getPlayer().getMoney() >= item.getPrice() && !item.isSold()) {
-				getPlayer().setMoney(getPlayer().getMoney() - item.getPrice());
-				item.setSold(true);
-				getPlayer().getInventory().add(item);
-			} else if (item.isSold()) {
-				System.out.println("Item is sold out.");
-			} else if (getPlayer().getMoney() < item.getPrice()) {
-				System.out.println("You don't have enough money.");
-			}
+			buyItem(weapons, id);
 		} else if (itemName.toLowerCase().equals("armour")) {
-			item = armours[id - 1];
-			if(getPlayer().getMoney() >= item.getPrice() && !item.isSold()) {
-				getPlayer().setMoney(getPlayer().getMoney() - item.getPrice());
-				item.setSold(true);
-				getPlayer().getInventory().add(item);
-			} else if (item.isSold()) {
-				System.out.println("Item is sold out.");
-			} else if (getPlayer().getMoney() < item.getPrice()) {
-				System.out.println("You don't have enough money.");
-			}
+			buyItem(armours, id);
 		} else {
 			System.out.println("A weapon or an armour! No other choice");
+		}
+	}
+	
+	private void buyItem(ShopItem[] items, int id) {
+		ShopItem item;
+		item = items[id - 1];
+		if(getPlayer().getMoney() >= item.getPrice() && !item.isSold()) {
+			getPlayer().setMoney(getPlayer().getMoney() - item.getPrice());
+			item.setSold(true);
+			getPlayer().getInventory().add(item);
+		} else if (item.isSold()) {
+			System.out.println("Item is sold out.");
+		} else if (getPlayer().getMoney() < item.getPrice()) {
+			System.out.println("You don't have enough money.");
 		}
 	}
 

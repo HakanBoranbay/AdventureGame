@@ -1,12 +1,10 @@
 package game.characters.enemies;
 
-import game.characters.GameCharacter;
-
-public class Vampire extends GameCharacter {
+public class Vampire extends Enemy {
 
 	public Vampire() {
-		damage = 7;
-		health = 20;
-		money = 12;
+		damage = 4;
+		health = 14;
+		money = 7;
 	}
 }
